@@ -165,6 +165,7 @@ export function initBackToTop(document, window) {
 }
 
 export function initSite(document, window) {
+  document.documentElement.classList.replace('no-js', 'js');
   initMobileMenu(document, window);
   initGalleryFilters(document);
   initLightbox(document);

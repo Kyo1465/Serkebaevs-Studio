@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "build:assets": "node scripts/optimize-images.mjs",
+    "serve": "node scripts/serve.mjs",
     "test": "node --test",
     "check": "node --check script.js && node --test"
   },
   "devDependencies": {
     "jsdom": "^26.1.0",
-    "sharp": "^0.34.3"
+    "sharp": "^0.35.3"
   }
 }

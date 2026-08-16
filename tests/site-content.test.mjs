@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, access } from 'node:fs/promises';
 import { JSDOM } from 'jsdom';
 
 const whatsapp = 'https://api.whatsapp.com/send/?phone=77077773618&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAT01DUATuqmdwZG9mAmV4dG4DYWVtAjEwAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp9sHR155g5neoKwtgaJE7EEgtjcXNy9ih5oTOPR2C66Fhi7OVMN79eHCEylS_aem_fo8ID266KlKwsY4toH-87w';
@@ -37,4 +37,28 @@ test('does not contain invented price claims or external executable resources', 
   assert.doesNotMatch(window.document.body.textContent, /₸|тенге|цена\s+от/i);
   assert.equal(window.document.querySelectorAll('script[src^="http"]').length, 0);
   assert.equal(window.document.querySelectorAll('link[rel="stylesheet"][href^="http"]').length, 0);
+});
+
+test('uses a local-only content security policy without inline scripts', async () => {
+  const { window } = await loadSite();
+  const policy = window.document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.content ?? '';
+  assert.match(policy, /default-src 'self'/);
+  assert.match(policy, /object-src 'none'/);
+  assert.match(policy, /form-action 'none'/);
+  assert.equal(window.document.querySelectorAll('script:not([src])').length, 0);
+});
+
+test('all local resources exist and external new-tab links are isolated', async () => {
+  const { window } = await loadSite();
+  const nodes = [...window.document.querySelectorAll('[src], [href], source[srcset]')];
+  for (const node of nodes) {
+    const value = node.getAttribute('src') ?? node.getAttribute('href') ?? node.getAttribute('srcset');
+    if (!value || value.startsWith('#') || value.startsWith('http')) continue;
+    await access(new URL(`../${value}`, import.meta.url));
+  }
+
+  for (const link of window.document.querySelectorAll('a[target="_blank"]')) {
+    const rel = new Set(link.rel.split(/\s+/));
+    assert.ok(rel.has('noopener') && rel.has('noreferrer'));
+  }
 });
