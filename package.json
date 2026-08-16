@@ -1,0 +1,15 @@
+{
+  "name": "serkebaevs-studio-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:assets": "node scripts/optimize-images.mjs",
+    "test": "node --test",
+    "check": "node --check script.js && node --test"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "sharp": "^0.34.3"
+  }
+}
