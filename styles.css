@@ -9,6 +9,7 @@
   --color-line-strong: rgba(242, 239, 233, 0.34);
   --color-accent: #c4ab87;
   --color-accent-dark: #856f51;
+  --font-heading: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
   --font-display: "Bodoni MT", Didot, "Times New Roman", Georgia, serif;
   --font-ui: "Segoe UI", Arial, sans-serif;
   --header-height: 76px;
@@ -205,7 +206,6 @@ figure {
   margin-inline: auto;
   padding: clamp(92px, 10vw, 148px) 0 clamp(84px, 9vw, 132px) calc(var(--rail) + 38px);
   border-bottom: 1px solid var(--color-line);
-  scroll-margin-top: var(--header-height);
 }
 
 .section-rail {
@@ -240,10 +240,10 @@ figure {
 h1,
 h2 {
   margin-bottom: 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.045em;
-  line-height: 0.98;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
   text-wrap: balance;
 }
 
@@ -259,7 +259,8 @@ h2 {
 h1 em,
 h2 em {
   color: var(--color-accent);
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .section-heading {
@@ -462,9 +463,10 @@ h2 em {
 
 .advantage h3 {
   margin: 72px 0 13px;
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 400;
+  letter-spacing: -0.025em;
 }
 
 .advantage p {
