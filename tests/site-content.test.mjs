@@ -62,3 +62,16 @@ test('all local resources exist and external new-tab links are isolated', async 
     assert.ok(rel.has('noopener') && rel.has('noreferrer'));
   }
 });
+
+test('contact social profiles use the supplied names and canonical profile links', async () => {
+  const { window } = await loadSite();
+  const instagram = window.document.querySelector('[data-social="instagram"]');
+  const facebook = window.document.querySelector('[data-social="facebook"]');
+
+  assert.equal(instagram?.href, 'https://www.instagram.com/serkebaevs_studio/');
+  assert.equal(instagram?.querySelector('strong')?.textContent, 'serkebaevs_studio');
+  assert.equal(facebook?.href, 'https://www.facebook.com/SerkebaevS.studio/');
+  assert.equal(facebook?.querySelector('strong')?.textContent, 'SerkebaevS.studio');
+  assert.equal(window.document.querySelectorAll('.contact-social-row').length, 2);
+  assert.doesNotMatch(window.document.body.textContent, /savion mebel/i);
+});

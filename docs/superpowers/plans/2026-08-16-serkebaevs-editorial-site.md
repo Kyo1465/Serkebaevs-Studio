@@ -345,7 +345,7 @@ Populate the five empty landmarks using this exact copy contract:
 | About | `О компании`, `Serkebaev's Studio специализируется на корпусной и мягкой мебели, мебели для кухни и дизайне интерьеров. Компания изготавливает мебель на заказ по индивидуальным проектам, а также предлагает готовую мебель в наличии.`, `Индивидуальные проекты`, `Готовая мебель`, `Несколько направлений`, `Ежедневно 09:00–18:00`, `Клиенты отмечают качество изделий, скорость изготовления и профессионализм сотрудников.` |
 | Projects | `Готовые проекты`, `Реальные работы Serkebaev's Studio.` and filters `Все`, `Шкафы`, `Мягкая мебель`, `Детская мебель`, `Санузлы`, `Кухни` |
 | Reviews | `Отзывы клиентов`, `О работе Serkebaev's Studio — словами клиентов.`, `Назад`, `Вперёд` |
-| Contacts | `Контакты`, `Алматы, Шевченко 204 к5`, `ТД «Саламат 5», 3 этаж, салоны 20–21`, `Ежедневно с 09:00 до 18:00`, `+7 707 777 36 18`, `Instagram: savion mebel`, `Facebook: SerkebaevS.studio`, `Заказать в WhatsApp` |
+| Contacts | `Контакты`, `Алматы, Шевченко 204 к5`, `ТД «Саламат 5», 3 этаж, салоны 20–21`, `Ежедневно с 09:00 до 18:00`, `+7 707 777 36 18`, `Instagram: serkebaevs_studio`, `Facebook: SerkebaevS.studio`, `Заказать в WhatsApp` |
 
 Use this exact gallery inventory:
 
@@ -382,7 +382,7 @@ Use these six review records verbatim apart from typographic punctuation:
 | Zhan Luck | Работал с этой компанией, самые приемлемые цены за дизайн. Специалисты — мастера своего дела, буду рекомендовать только вас. |
 | Gulbar K. | Заказала две консоли, очень довольна, спасибо за заказ, отлично вписались в наш интерьер. |
 
-Every order link uses the exact WhatsApp URL from the test and `target="_blank" rel="noopener noreferrer" data-whatsapp`. Instagram and Facebook remain plain text because URLs were not supplied. Each project uses `<picture>` with AVIF source, WebP fallback, `width="591"`, `height="1052"`, `loading="lazy"`, `decoding="async"`, and a button carrying `data-project`, `data-category`, `data-title`, `data-alt`, `data-full-avif`, and `data-full-webp`. The hero uses `storage-06`, sets `fetchpriority="high"`, and omits lazy loading.
+Every order link uses the exact WhatsApp URL from the test and `target="_blank" rel="noopener noreferrer" data-whatsapp`. The later user-approved social links use `https://www.instagram.com/serkebaevs_studio/` and `https://www.facebook.com/SerkebaevS.studio/`. Each project uses `<picture>` with AVIF source, WebP fallback, `width="591"`, `height="1052"`, `loading="lazy"`, `decoding="async"`, and a button carrying `data-project`, `data-category`, `data-title`, `data-alt`, `data-full-avif`, and `data-full-webp`. The hero uses `storage-06`, sets `fetchpriority="high"`, and omits lazy loading.
 
 - [ ] **Step 4: Run the page contract and confirm GREEN**
 
