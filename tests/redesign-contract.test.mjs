@@ -9,6 +9,11 @@ async function loadStylesheet() {
   return { dom, sheet: dom.window.document.styleSheets[0] };
 }
 
+async function loadPage() {
+  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  return new JSDOM(html).window.document;
+}
+
 function normalizeSelector(selector) {
   return selector.split(',').map((part) => part.trim()).join(', ');
 }
@@ -40,13 +45,10 @@ test('uses the approved Dark Gallery palette and sans-serif headings', async () 
   assert.equal(heading.fontStyle, 'normal');
 });
 
-test('renders section labels horizontally instead of as vertical rails', async () => {
-  const { dom } = await loadStylesheet();
-  const rail = dom.window.getComputedStyle(dom.window.document.querySelector('.test-section .section-rail'));
+test('omits decorative numbered rails from every section', async () => {
+  const document = await loadPage();
 
-  assert.equal(rail.position, 'static');
-  assert.equal(rail.flexDirection, 'row');
-  assert.notEqual(rail.writingMode, 'vertical-rl');
+  assert.equal(document.querySelectorAll('.section-rail').length, 0);
 });
 
 test('defines a compact mobile header and hero contract', async () => {
@@ -63,9 +65,22 @@ test('defines a compact mobile header and hero contract', async () => {
   assert.ok(heroMedia, 'mobile hero media rule must exist');
   assert.equal(root.style.getPropertyValue('--header-height').trim(), '60px');
   assert.equal(section.style.getPropertyValue('padding').trim(), '64px 0');
-  assert.equal(hero.style.getPropertyValue('padding-top').trim(), 'calc(var(--header-height) + 24px)');
+  assert.equal(hero.style.getPropertyValue('padding-top').trim(), 'calc(var(--header-height) + 20px)');
   assert.equal(hero.style.getPropertyValue('min-height').trim(), 'calc(100svh - var(--header-height))');
-  assert.equal(heroMedia.style.getPropertyValue('max-height').trim(), '44svh');
+  assert.equal(heroMedia.style.getPropertyValue('max-height').trim(), '40svh');
+});
+
+test('balances the hero with a bold heading and warm material accent', async () => {
+  const { dom, sheet } = await loadStylesheet();
+  const root = dom.window.getComputedStyle(dom.window.document.documentElement);
+  const heading = dom.window.getComputedStyle(dom.window.document.querySelector('h1'));
+  const hero = findStyleRule(sheet.cssRules, '.hero');
+  const halo = findStyleRule(sheet.cssRules, '.hero-media::before');
+
+  assert.equal(root.getPropertyValue('--color-warm').trim().toLowerCase(), '#b8875b');
+  assert.equal(heading.fontWeight, '700');
+  assert.equal(hero.style.getPropertyValue('grid-template-columns').trim(), 'minmax(0, 1.08fr) minmax(360px, 0.92fr)');
+  assert.equal(halo.style.getPropertyValue('display').trim(), 'block');
 });
 
 test('uses one coherent rounded card system for primary components', async () => {
@@ -91,10 +106,13 @@ test('keeps gallery compact and horizontal with unbroken social profile names', 
   assert.equal(social.style.getPropertyValue('white-space').trim(), 'nowrap');
 });
 
-test('keeps the contacts label above both footer columns', async () => {
+test('uses the warm accent for active filters and project-card interaction', async () => {
   const { sheet } = await loadStylesheet();
-  const rail = findStyleRule(sheet.cssRules, '.contacts > .section-rail');
+  const activeFilter = findStyleRule(sheet.cssRules, '.project-filters button:hover, .project-filters button[aria-pressed="true"]');
+  const projectHover = findStyleRule(sheet.cssRules, '.project-card:hover, .project-card:focus-visible');
 
-  assert.ok(rail, 'contacts rail placement rule must exist');
-  assert.equal(rail.style.getPropertyValue('grid-column').trim(), '1 / -1');
+  assert.equal(activeFilter.style.getPropertyValue('background').trim(), 'var(--color-warm)');
+  assert.equal(activeFilter.style.getPropertyValue('border-color').trim(), 'var(--color-warm)');
+  assert.equal(projectHover.style.getPropertyValue('border-color').trim(), 'var(--color-warm)');
+  assert.equal(projectHover.style.getPropertyValue('transform').trim(), 'translateY(-4px)');
 });
