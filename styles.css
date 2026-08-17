@@ -736,6 +736,10 @@ h2 em {
   border-bottom: 0;
 }
 
+.contacts > .section-rail {
+  grid-column: 1 / -1;
+}
+
 .contacts h2 {
   max-width: 680px;
   margin-bottom: 48px;

@@ -90,3 +90,11 @@ test('keeps gallery compact and horizontal with unbroken social profile names', 
   assert.equal(mobileGrid.style.getPropertyValue('grid-auto-columns').trim(), 'min(82vw, 310px)');
   assert.equal(social.style.getPropertyValue('white-space').trim(), 'nowrap');
 });
+
+test('keeps the contacts label above both footer columns', async () => {
+  const { sheet } = await loadStylesheet();
+  const rail = findStyleRule(sheet.cssRules, '.contacts > .section-rail');
+
+  assert.ok(rail, 'contacts rail placement rule must exist');
+  assert.equal(rail.style.getPropertyValue('grid-column').trim(), '1 / -1');
+});
