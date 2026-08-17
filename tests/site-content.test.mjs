@@ -43,8 +43,12 @@ test('uses a local-only content security policy without inline scripts', async (
   const { window } = await loadSite();
   const policy = window.document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.content ?? '';
   assert.match(policy, /default-src 'self'/);
+  assert.match(policy, /style-src 'self'/);
+  assert.match(policy, /script-src 'self'/);
+  assert.match(policy, /connect-src 'self'/);
   assert.match(policy, /object-src 'none'/);
   assert.match(policy, /form-action 'none'/);
+  assert.doesNotMatch(policy, /'unsafe-inline'/);
   assert.equal(window.document.querySelectorAll('script:not([src])').length, 0);
 });
 
