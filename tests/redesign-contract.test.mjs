@@ -67,3 +67,26 @@ test('defines a compact mobile header and hero contract', async () => {
   assert.equal(hero.style.getPropertyValue('min-height').trim(), 'calc(100svh - var(--header-height))');
   assert.equal(heroMedia.style.getPropertyValue('max-height').trim(), '44svh');
 });
+
+test('uses one coherent rounded card system for primary components', async () => {
+  const { sheet } = await loadStylesheet();
+  const advantage = findStyleRule(sheet.cssRules, '.advantage');
+  const project = findStyleRule(sheet.cssRules, '.project-card');
+  const reviews = findStyleRule(sheet.cssRules, '.reviews-shell');
+
+  assert.equal(advantage.style.getPropertyValue('border-radius').trim(), 'var(--radius-md)');
+  assert.equal(project.style.getPropertyValue('border-radius').trim(), 'var(--radius-md)');
+  assert.equal(reviews.style.getPropertyValue('border-radius').trim(), 'var(--radius-lg)');
+});
+
+test('keeps gallery compact and horizontal with unbroken social profile names', async () => {
+  const { sheet } = await loadStylesheet();
+  const grid = findStyleRule(sheet.cssRules, '.projects-grid');
+  const mobileGrid = findStyleRule(sheet.cssRules, '.projects-grid', '(max-width: 767px)');
+  const social = findStyleRule(sheet.cssRules, '.contact-social-row strong');
+
+  assert.equal(grid.style.getPropertyValue('grid-auto-flow').trim(), 'column');
+  assert.match(grid.style.getPropertyValue('overflow-x').trim(), /auto/);
+  assert.equal(mobileGrid.style.getPropertyValue('grid-auto-columns').trim(), 'min(82vw, 310px)');
+  assert.equal(social.style.getPropertyValue('white-space').trim(), 'nowrap');
+});

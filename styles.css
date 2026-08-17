@@ -405,16 +405,17 @@ h2 em {
 
 .about {
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 64px 88px;
+  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
+  gap: 38px clamp(48px, 7vw, 88px);
 }
 
 .about .section-rail {
-  grid-row: 1 / span 4;
+  grid-column: 1 / -1;
+  grid-row: auto;
 }
 
 .about-intro {
-  padding-top: 28px;
+  padding-top: 12px;
 }
 
 .about-intro p {
@@ -427,19 +428,21 @@ h2 em {
 .advantages {
   display: grid;
   grid-column: 1 / -1;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  border: 0;
 }
 
 .advantage {
-  min-height: 240px;
-  padding: 28px 24px 32px;
-  border-right: 1px solid var(--color-line);
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
 .advantage:last-child {
-  border-right: 0;
+  border-right: 1px solid var(--color-line);
 }
 
 .advantage-number {
@@ -449,7 +452,7 @@ h2 em {
 }
 
 .advantage h3 {
-  margin: 72px 0 13px;
+  margin: 54px 0 13px;
   font-family: var(--font-heading);
   font-size: 1.15rem;
   font-weight: 500;
@@ -469,6 +472,10 @@ h2 em {
   justify-content: end;
   gap: 22px;
   margin: 0;
+  padding: 28px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
 }
 
 .client-note > span {
@@ -480,9 +487,10 @@ h2 em {
 
 .client-note p {
   margin-bottom: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.55rem, 2.8vw, 2.5rem);
-  line-height: 1.18;
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2.4vw, 2.15rem);
+  font-weight: 500;
+  line-height: 1.24;
 }
 
 .about > .button {
@@ -491,13 +499,13 @@ h2 em {
 }
 
 .projects {
-  width: 100%;
-  padding-right: max(32px, calc((100vw - 1180px) / 2));
-  padding-left: max(calc(var(--rail) + 70px), calc((100vw - 1180px) / 2 + var(--rail) + 38px));
+  width: var(--container);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .projects .section-rail {
-  left: max(32px, calc((100vw - 1180px) / 2));
+  left: auto;
 }
 
 .project-filters {
@@ -515,6 +523,7 @@ h2 em {
   flex: none;
   padding: 10px 17px;
   border: 1px solid var(--color-line);
+  border-radius: 999px;
   background: transparent;
   color: var(--color-muted);
   cursor: pointer;
@@ -532,9 +541,9 @@ h2 em {
 
 .projects-grid {
   display: grid;
-  grid-auto-columns: clamp(255px, 26vw, 355px);
+  grid-auto-columns: clamp(260px, 25vw, 344px);
   grid-auto-flow: column;
-  gap: 18px;
+  gap: 14px;
   padding: 0 2px 26px;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
@@ -549,8 +558,9 @@ h2 em {
   min-width: 0;
   padding: 0;
   overflow: hidden;
-  border: 0;
-  background: var(--color-raised);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   cursor: zoom-in;
   scroll-snap-align: start;
   text-align: left;
@@ -600,22 +610,24 @@ h2 em {
 
 .project-meta strong {
   max-width: 150px;
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 400;
   text-align: right;
 }
 
 .reviews {
-  min-height: min(900px, calc(100svh + 100px));
+  min-height: auto;
 }
 
 .reviews-shell {
   position: relative;
   max-width: 940px;
   margin-left: auto;
+  overflow: hidden;
   border: 1px solid var(--color-line);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.025), transparent 56%);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
 }
 
 .reviews-shell:focus-visible {
@@ -623,12 +635,12 @@ h2 em {
 }
 
 .reviews-track {
-  min-height: 410px;
+  min-height: 360px;
 }
 
 .review {
-  min-height: 410px;
-  padding: clamp(34px, 5vw, 68px);
+  min-height: 360px;
+  padding: clamp(28px, 5vw, 58px);
 }
 
 .review[hidden] {
@@ -670,9 +682,10 @@ h2 em {
 .review blockquote {
   max-width: 780px;
   margin-bottom: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.55rem, 3vw, 2.55rem);
-  line-height: 1.23;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.4vw, 2rem);
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .review-controls {
@@ -710,16 +723,16 @@ h2 em {
 .review-controls p {
   margin: 0;
   color: var(--color-muted);
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-variant-numeric: tabular-nums;
 }
 
 .contacts {
   display: grid;
-  min-height: 78svh;
-  grid-template-columns: 1.1fr 0.9fr;
+  min-height: auto;
+  grid-template-columns: 1.05fr 0.95fr;
   align-content: center;
-  gap: 90px;
+  gap: clamp(48px, 8vw, 96px);
   border-bottom: 0;
 }
 
@@ -731,8 +744,10 @@ h2 em {
 .contact-details {
   display: grid;
   gap: 26px;
-  padding-left: 38px;
-  border-left: 1px solid var(--color-line);
+  padding: 28px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
 }
 
 .contact-details > div {
@@ -835,7 +850,9 @@ h2 em {
   width: min(92vw, 760px);
   max-height: 92svh;
   flex-direction: column;
+  overflow: hidden;
   border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-lg);
   background: var(--color-surface);
   box-shadow: 0 34px 90px rgba(0, 0, 0, 0.5);
 }
@@ -890,8 +907,8 @@ h2 em {
   height: 50px;
   place-items: center;
   border: 1px solid var(--color-line-strong);
-  border-radius: 50%;
-  background: rgba(17, 17, 17, 0.88);
+  border-radius: 14px;
+  background: rgba(17, 19, 21, 0.9);
   color: var(--color-text);
   cursor: pointer;
   backdrop-filter: blur(10px);
@@ -910,7 +927,7 @@ h2 em {
 @media (max-width: 1023px) {
   :root {
     --container: min(100vw - 44px, 900px);
-    --rail: 42px;
+    --rail: 0px;
   }
 
   .hero {
@@ -923,7 +940,7 @@ h2 em {
   }
 
   .about {
-    gap: 48px;
+    gap: 32px 48px;
   }
 
   .advantages {
@@ -931,7 +948,7 @@ h2 em {
   }
 
   .advantage:nth-child(2) {
-    border-right: 0;
+    border-right: 1px solid var(--color-line);
   }
 
   .advantage:nth-child(-n + 2) {
@@ -939,16 +956,16 @@ h2 em {
   }
 
   .projects {
-    padding-right: 22px;
-    padding-left: calc(var(--rail) + 60px);
+    padding-right: 0;
+    padding-left: 0;
   }
 
   .projects .section-rail {
-    left: 22px;
+    left: auto;
   }
 
   .contacts {
-    gap: 52px;
+    gap: 48px;
   }
 }
 
@@ -1162,36 +1179,37 @@ h2 em {
   .about {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 18px;
   }
 
   .about-intro {
-    padding-top: 28px;
+    padding-top: 0;
   }
 
   .advantages {
     grid-template-columns: 1fr;
-    margin-top: 34px;
+    gap: 10px;
+    margin-top: 12px;
   }
 
   .advantage {
     min-height: 0;
-    padding: 24px 6px 26px;
-    border-right: 0;
-    border-bottom: 1px solid var(--color-line);
+    padding: 16px;
+    border: 1px solid var(--color-line);
   }
 
   .advantage:last-child {
-    border-bottom: 0;
+    border-bottom: 1px solid var(--color-line);
   }
 
   .advantage h3 {
-    margin-top: 28px;
+    margin-top: 24px;
   }
 
   .client-note {
     grid-template-columns: 28px 1fr;
-    margin-top: 52px;
+    margin-top: 10px;
+    padding: 20px 16px;
   }
 
   .client-note > span {
@@ -1200,7 +1218,7 @@ h2 em {
 
   .about > .button {
     align-self: flex-start;
-    margin-top: 40px;
+    margin-top: 12px;
   }
 
   .projects .section-rail {
@@ -1212,7 +1230,7 @@ h2 em {
   }
 
   .projects-grid {
-    grid-auto-columns: min(78vw, 320px);
+    grid-auto-columns: min(82vw, 310px);
     margin-right: -16px;
   }
 
@@ -1230,19 +1248,19 @@ h2 em {
 
   .reviews-track,
   .review {
-    min-height: 430px;
+    min-height: 340px;
   }
 
   .review {
-    padding: 28px 24px 34px;
+    padding: 24px 20px 28px;
   }
 
   .review header {
-    margin-bottom: 42px;
+    margin-bottom: 28px;
   }
 
   .review blockquote {
-    font-size: clamp(1.35rem, 6vw, 1.85rem);
+    font-size: clamp(1.2rem, 5.4vw, 1.65rem);
   }
 
   .review-controls button {
@@ -1257,7 +1275,7 @@ h2 em {
     display: flex;
     min-height: 0;
     flex-direction: column;
-    gap: 52px;
+    gap: 36px;
   }
 
   .contacts h2 {
@@ -1266,8 +1284,8 @@ h2 em {
 
   .contact-details {
     gap: 20px;
-    padding-left: 0;
-    border-left: 0;
+    padding: 18px;
+    border: 1px solid var(--color-line);
   }
 
   .contact-details > div {
