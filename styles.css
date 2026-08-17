@@ -1,20 +1,23 @@
 :root {
-  --color-bg: #080808;
-  --color-surface: #101010;
-  --color-raised: #171717;
-  --color-text: #f2efe9;
-  --color-muted: #aaa59c;
-  --color-dim: #75716a;
-  --color-line: rgba(242, 239, 233, 0.16);
-  --color-line-strong: rgba(242, 239, 233, 0.34);
-  --color-accent: #c4ab87;
+  --color-bg: #090a0b;
+  --color-surface: #111315;
+  --color-raised: #171a1d;
+  --color-text: #f4f5f2;
+  --color-muted: #9a9fa5;
+  --color-dim: #6f747a;
+  --color-line: rgba(244, 245, 242, 0.12);
+  --color-line-strong: rgba(244, 245, 242, 0.22);
+  --color-accent: #c7cdd3;
   --color-accent-dark: #856f51;
-  --font-heading: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
-  --font-display: "Bodoni MT", Didot, "Times New Roman", Georgia, serif;
-  --font-ui: "Segoe UI", Arial, sans-serif;
-  --header-height: 76px;
+  --font-heading: Inter, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --font-display: var(--font-heading);
+  --font-ui: Inter, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --header-height: 68px;
   --container: min(1180px, calc(100vw - 64px));
-  --rail: 52px;
+  --rail: 0px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -34,9 +37,7 @@ body {
   min-width: 320px;
   margin: 0;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at 72% 12%, rgba(196, 171, 135, 0.07), transparent 26rem),
-    var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-ui);
   font-size: 16px;
@@ -121,8 +122,8 @@ figure {
   inset: 0 0 auto;
   height: var(--header-height);
   border-bottom: 1px solid var(--color-line);
-  background: rgba(8, 8, 8, 0.84);
-  backdrop-filter: blur(18px);
+  background: rgba(9, 10, 11, 0.82);
+  backdrop-filter: blur(20px);
 }
 
 .header-inner {
@@ -137,17 +138,18 @@ figure {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 13px;
+  gap: 11px;
   min-height: 44px;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.045em;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 550;
+  letter-spacing: -0.01em;
 }
 
 .brand picture,
 .brand img {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
 }
 
 .brand img {
@@ -159,41 +161,29 @@ figure {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: clamp(18px, 2.5vw, 36px);
+  gap: 4px;
 }
 
 .site-nav a {
   position: relative;
   min-height: 44px;
-  padding-block: 11px;
+  padding: 11px 14px;
+  border-radius: 999px;
   color: var(--color-muted);
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  transition: color 220ms ease;
+  transition: color 220ms ease, background 220ms ease;
 }
 
 .site-nav a::after {
-  position: absolute;
-  right: 0;
-  bottom: 7px;
-  left: 0;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: var(--color-accent);
-  content: "";
-  transition: transform 280ms var(--ease);
+  display: none;
 }
 
 .site-nav a:hover,
 .site-nav a:focus-visible {
+  background: var(--color-raised);
   color: var(--color-text);
-}
-
-.site-nav a:hover::after,
-.site-nav a:focus-visible::after {
-  transform: scaleX(1);
 }
 
 .menu-toggle {
@@ -204,28 +194,31 @@ figure {
   position: relative;
   width: var(--container);
   margin-inline: auto;
-  padding: clamp(92px, 10vw, 148px) 0 clamp(84px, 9vw, 132px) calc(var(--rail) + 38px);
+  padding: clamp(76px, 8vw, 112px) 0;
   border-bottom: 1px solid var(--color-line);
 }
 
 .section-rail {
-  position: absolute;
-  inset: clamp(92px, 10vw, 148px) auto clamp(84px, 9vw, 132px) 0;
+  position: static;
   display: flex;
-  width: var(--rail);
-  flex-direction: column;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-right: 1px solid var(--color-line);
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-right: 0;
+  border-bottom: 1px solid var(--color-line);
   color: var(--color-dim);
-  font-size: 0.7rem;
-  letter-spacing: 0.19em;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .section-rail span:last-child {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  writing-mode: horizontal-tb;
+  transform: none;
 }
 
 .eyebrow {
@@ -239,10 +232,12 @@ figure {
 
 h1,
 h2 {
-  margin-bottom: 0;
+  margin: 0;
+  color: var(--color-text);
   font-family: var(--font-heading);
-  font-weight: 400;
-  letter-spacing: -0.055em;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.045em;
   line-height: 1.02;
   text-wrap: balance;
 }
@@ -258,9 +253,9 @@ h2 {
 
 h1 em,
 h2 em {
-  color: var(--color-accent);
+  color: inherit;
   font-style: normal;
-  font-weight: 400;
+  font-weight: inherit;
 }
 
 .section-heading {
@@ -285,6 +280,7 @@ h2 em {
   gap: 34px;
   padding: 14px 21px;
   border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.13em;
@@ -319,6 +315,7 @@ h2 em {
   min-height: 44px;
   align-items: center;
   gap: 20px;
+  padding-inline: 2px;
   border-bottom: 1px solid var(--color-line-strong);
   color: var(--color-muted);
   font-size: 0.78rem;
@@ -334,16 +331,19 @@ h2 em {
 .hero {
   display: grid;
   min-height: 100svh;
-  grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.75fr);
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
   align-items: center;
-  gap: clamp(48px, 7vw, 100px);
-  padding-top: calc(var(--header-height) + 68px);
-  padding-bottom: 68px;
+  gap: clamp(42px, 6vw, 84px);
+  padding-top: calc(var(--header-height) + 44px);
+  padding-bottom: 44px;
 }
 
 .hero .section-rail {
-  top: calc(var(--header-height) + 68px);
-  bottom: 68px;
+  position: absolute;
+  top: calc(var(--header-height) + 20px);
+  left: 0;
+  width: 100%;
+  margin: 0;
 }
 
 .hero-copy {
@@ -367,28 +367,25 @@ h2 em {
 
 .hero-media {
   position: relative;
-  width: min(100%, 430px);
+  width: min(100%, 480px);
   margin: 0 0 0 auto;
 }
 
 .hero-media::before {
-  position: absolute;
-  z-index: -1;
-  inset: -18px 18px 18px -18px;
-  border: 1px solid var(--color-line-strong);
-  content: "";
+  display: none;
 }
 
 .hero-media picture {
   display: block;
-  max-height: min(68svh, 660px);
   overflow: hidden;
+  border-radius: var(--radius-lg);
   background: var(--color-raised);
+  aspect-ratio: 4 / 5;
 }
 
 .hero-media img {
   width: 100%;
-  height: min(68svh, 660px);
+  height: 100%;
   object-fit: cover;
 }
 
@@ -403,17 +400,7 @@ h2 em {
 }
 
 .hero-index {
-  position: absolute;
-  right: -0.04em;
-  bottom: 30px;
-  display: flex;
-  gap: 8px;
-  color: rgba(242, 239, 233, 0.035);
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 10rem);
-  line-height: 0.8;
-  pointer-events: none;
-  white-space: nowrap;
+  display: none;
 }
 
 .about {
@@ -967,8 +954,8 @@ h2 em {
 
 @media (max-width: 767px) {
   :root {
-    --container: min(calc(100vw - 32px), 640px);
-    --header-height: 68px;
+    --container: min(calc(100vw - 28px), 640px);
+    --header-height: 60px;
     --rail: 0px;
   }
 
@@ -981,23 +968,24 @@ h2 em {
   }
 
   .brand {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
   }
 
   .brand picture,
   .brand img {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
   }
 
   .menu-toggle {
     position: relative;
     z-index: 2;
     display: grid;
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     place-items: center;
     border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
     background: transparent;
     cursor: pointer;
   }
@@ -1058,7 +1046,7 @@ h2 em {
     padding: 18px 16px 28px;
     transform: translateY(calc(-100% - var(--header-height)));
     border-bottom: 1px solid var(--color-line);
-    background: rgba(8, 8, 8, 0.98);
+    background: rgba(9, 10, 11, 0.98);
     opacity: 0;
     visibility: hidden;
     transition: transform 340ms var(--ease), opacity 220ms ease, visibility 220ms ease;
@@ -1074,8 +1062,10 @@ h2 em {
     padding: 16px 4px;
     border-bottom: 1px solid var(--color-line);
     color: var(--color-text);
-    font-family: var(--font-display);
-    font-size: 1.35rem;
+    border-radius: 0;
+    font-family: var(--font-heading);
+    font-size: 1.08rem;
+    font-weight: 500;
     letter-spacing: 0;
     text-transform: none;
   }
@@ -1083,7 +1073,7 @@ h2 em {
   .section,
   .projects {
     width: var(--container);
-    padding: 82px 0;
+    padding: 64px 0;
   }
 
   .section-rail {
@@ -1093,7 +1083,7 @@ h2 em {
     height: auto;
     flex-direction: row;
     grid-column: 1 / -1;
-    margin-bottom: 42px;
+    margin-bottom: 24px;
     padding-bottom: 12px;
     border-right: 0;
     border-bottom: 1px solid var(--color-line);
@@ -1105,11 +1095,11 @@ h2 em {
   }
 
   h1 {
-    font-size: clamp(2.5rem, 11.8vw, 3.8rem);
+    font-size: clamp(2.15rem, 10.5vw, 2.75rem);
   }
 
   h2 {
-    font-size: clamp(2.15rem, 10vw, 3.35rem);
+    font-size: clamp(2rem, 9vw, 2.55rem);
   }
 
   .section-heading {
@@ -1124,28 +1114,31 @@ h2 em {
 
   .hero {
     display: flex;
-    min-height: auto;
+    min-height: calc(100svh - var(--header-height));
     flex-direction: column;
     align-items: stretch;
-    gap: 62px;
-    padding-top: calc(var(--header-height) + 38px);
+    gap: 20px;
+    padding-top: calc(var(--header-height) + 24px);
+    padding-bottom: 24px;
   }
 
   .hero .section-rail {
-    order: -2;
+    position: static;
+    order: -3;
+    margin-bottom: 0;
   }
 
   .hero-copy {
-    order: -1;
+    order: -2;
   }
 
   .hero-lead {
-    margin: 26px 0 30px;
+    margin: 18px 0 22px;
   }
 
   .hero-actions {
     align-items: stretch;
-    gap: 18px;
+    gap: 12px;
   }
 
   .hero-actions .button {
@@ -1153,18 +1146,17 @@ h2 em {
   }
 
   .hero-media {
-    width: calc(100% - 16px);
-    margin-left: 16px;
+    order: -1;
+    width: 100%;
+    margin: 0;
   }
 
   .hero-media picture,
   .hero-media img {
-    height: min(72svh, 620px);
-    max-height: none;
-  }
-
-  .hero-media::before {
-    inset: -12px 12px 12px -12px;
+    width: 100%;
+    height: auto;
+    max-height: 44svh;
+    aspect-ratio: 4 / 3;
   }
 
   .about {
